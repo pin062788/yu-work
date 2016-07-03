@@ -1,0 +1,18 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" pageEncoding="UTF-8">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	#if($!supriceMessage)
+		<div>
+			<a href="getMoney.htm">$!supriceMessage</a>
+		</div>
+	#else
+		<form action="seeSurprise.htm" method="post">
+			<h1><font color=red>$!newUserName</font></h1>
+			<input type="button" onclick="submit()" value="see what is ready for you!">
+		</form>
+	#end
+</body>
+</html>

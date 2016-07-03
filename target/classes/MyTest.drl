@@ -1,0 +1,26 @@
+
+import yuweixiang.first.drools.FirstDrools;
+
+rule "First Rule"
+
+  when
+    order:FirstDrools(sumprice>30,sumprice<=50);
+  then
+    order.setDiscountPercent(98);
+
+end
+
+rule "Second Rule"
+  when
+    order:FirstDrools(sumprice>50,sumprice<=100);
+  then
+    order.setDiscountPercent(95);
+
+end
+
+rule "third Rule"
+  when
+    order:FirstDrools(sumprice>100);
+  then
+    order.setDiscountPercent(90);
+end

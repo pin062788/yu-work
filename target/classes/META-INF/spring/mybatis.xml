@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+                http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+    <bean id="dataSource" class="org.apache.tomcat.jdbc.pool.DataSource" destroy-method="close">
+        <property name="poolProperties">
+            <bean class="org.apache.tomcat.jdbc.pool.PoolProperties">
+                <property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+                <property name="url" value="${yuweixiang.trade.url}"/>
+                <property name="username" value="${yuweixiang.trade.user}"/>
+                <property name="password" value="${yuweixiang.trade.password}"/>
+                <property name="jmxEnabled" value="false"/>
+                <property name="testWhileIdle" value="false"/>
+                <property name="initialSize" value="10"/>
+                <property name="maxActive" value="100"/>
+                <property name="maxIdle" value="30"/>
+                <property name="minIdle" value="15"/>
+                <property name="defaultAutoCommit" value="false"/>
+                <property name="maxWait" value="5000"/>
+                <property name="removeAbandoned" value="true"/>
+                <property name="removeAbandonedTimeout" value="120"/>
+                <property name="testOnBorrow" value="true"/>
+                <property name="testOnReturn" value="false"/>
+                <property name="validationQuery" value="SELECT 1"/>
+                <property name="validationInterval" value="60000"/>
+                <property name="validationQueryTimeout" value="3"/>
+                <property name="timeBetweenEvictionRunsMillis" value="300000"/>
+                <property name="minEvictableIdleTimeMillis" value="1800000"/>
+                <property name="jdbcInterceptors"
+                          value="org.apache.tomcat.jdbc.pool.interceptor.ConnectionState;org.apache.tomcat.jdbc.pool.interceptor.StatementFinalizer"/>
+            </bean>
+        </property>
+    </bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+    <!--使用tomcat jdbc pool,仅读写库需要使用事务-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="configLocation" value="classpath:mybatis-config.xml"/>
+    </bean>
+
+    <!-- scan for mappers and let them be autowired -->
+    <bean id="orderDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="yuweixiang.first.dal.daointerface.OrderDOMapper"/>
+    </bean>
+    <bean id="ordeAddressDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="yuweixiang.first.dal.daointerface.OrderAddressDOMapper"/>
+    </bean>
+    <bean id="orderGoodsDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="yuweixiang.first.dal.daointerface.OrderGoodsDOMapper"/>
+    </bean>
+    <bean id="orderFeeDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="yuweixiang.first.dal.daointerface.OrderFeeDOMapper"/>
+    </bean>
+    <bean id="userDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="yuweixiang.first.dal.daointerface.UserDOMapper"/>
+    </bean>
+    <bean id="userAddressDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="yuweixiang.first.dal.daointerface.UserAddressDOMapper"/>
+    </bean>
+    <bean id="skuDOMapper" class="org.mybatis.spring.mapper.MapperFactoryBean">
+        <property name="sqlSessionFactory" ref="sqlSessionFactory"/>
+        <property name="mapperInterface" value="yuweixiang.first.dal.daointerface.SkuDOMapper"/>
+    </bean>
+
+</beans>

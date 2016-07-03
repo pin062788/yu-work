@@ -1,0 +1,29 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" pageEncoding="UTF-8">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="/static/css/common.css" />
+</head>
+<body>
+    <form action="search.htm" method="post">
+        <span>
+            <input class="input" name = "keyWord" placeholder="开始愉快的搜索之旅吧:)" value="$!keyWord"/>
+        </span>
+        <span>
+            <input class="btn" type="button" onclick="submit()" value="寻找">
+        </span>
+    </form>
+    <hr/>
+    #if($!searchResult.totalAmount==0)
+        <span height: 35px>未找到关于"$!keyWord"的搜索结果</span>
+    #else
+        <span height: 35px>找到约 $!searchResult.totalAmount 条结果</span>
+        #foreach( $searchItem in $searchResult.searchItemList)
+        <form>
+            <h3><a href="$!searchItem.url"><font color=green>$searchItem.title</font></a></h3>
+            <span>$!searchItem.context</span>
+        </form>
+        #end
+    #end
+</body>
+</html>

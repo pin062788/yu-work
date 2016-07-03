@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yuweixiang.first.dal.daointerface.OrderGoodsDOMapper" >
+  <resultMap id="BaseResultMap" type="yuweixiang.first.dal.dataobject.OrderGoodsDO" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="item_id" property="itemId" jdbcType="BIGINT" />
+    <result column="sku_id" property="skuId" jdbcType="BIGINT" />
+    <result column="abbreviation" property="abbreviation" jdbcType="VARCHAR" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="quantity" property="quantity" jdbcType="BIGINT" />
+    <result column="price" property="price" jdbcType="BIGINT" />
+    <result column="origin_price" property="originPrice" jdbcType="BIGINT" />
+    <result column="currency" property="currency" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="brand" property="brand" jdbcType="VARCHAR" />
+    <result column="category" property="category" jdbcType="VARCHAR" />
+    <result column="feature" property="feature" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, item_id, sku_id, abbreviation, goods_name, quantity, price, origin_price, 
+    currency, spec, brand, category, feature, image_url, detail_url, gmt_create, gmt_modified, 
+    is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from order_goods
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from order_goods
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="yuweixiang.first.dal.dataobject.OrderGoodsDO" >
+    insert into order_goods (id, order_id, item_id, 
+      sku_id, abbreviation, goods_name, 
+      quantity, price, origin_price, 
+      currency, spec, brand, 
+      category, feature, image_url, 
+      detail_url, gmt_create, gmt_modified, 
+      is_delete)
+    values (#{id,jdbcType=BIGINT}, #{orderId,jdbcType=VARCHAR}, #{itemId,jdbcType=BIGINT}, 
+      #{skuId,jdbcType=BIGINT}, #{abbreviation,jdbcType=VARCHAR}, #{goodsName,jdbcType=VARCHAR}, 
+      #{quantity,jdbcType=BIGINT}, #{price,jdbcType=BIGINT}, #{originPrice,jdbcType=BIGINT}, 
+      #{currency,jdbcType=VARCHAR}, #{spec,jdbcType=VARCHAR}, #{brand,jdbcType=VARCHAR}, 
+      #{category,jdbcType=VARCHAR}, #{feature,jdbcType=VARCHAR}, #{imageUrl,jdbcType=VARCHAR}, 
+      #{detailUrl,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, #{gmtModified,jdbcType=TIMESTAMP}, 
+      #{isDelete,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="yuweixiang.first.dal.dataobject.OrderGoodsDO" >
+    insert into order_goods
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="itemId != null" >
+        item_id,
+      </if>
+      <if test="skuId != null" >
+        sku_id,
+      </if>
+      <if test="abbreviation != null" >
+        abbreviation,
+      </if>
+      <if test="goodsName != null" >
+        goods_name,
+      </if>
+      <if test="quantity != null" >
+        quantity,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="originPrice != null" >
+        origin_price,
+      </if>
+      <if test="currency != null" >
+        currency,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+      <if test="brand != null" >
+        brand,
+      </if>
+      <if test="category != null" >
+        category,
+      </if>
+      <if test="feature != null" >
+        feature,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="detailUrl != null" >
+        detail_url,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null" >
+        #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="abbreviation != null" >
+        #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        #{quantity,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=BIGINT},
+      </if>
+      <if test="originPrice != null" >
+        #{originPrice,jdbcType=BIGINT},
+      </if>
+      <if test="currency != null" >
+        #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="feature != null" >
+        #{feature,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="yuweixiang.first.dal.dataobject.OrderGoodsDO" >
+    update order_goods
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="itemId != null" >
+        item_id = #{itemId,jdbcType=BIGINT},
+      </if>
+      <if test="skuId != null" >
+        sku_id = #{skuId,jdbcType=BIGINT},
+      </if>
+      <if test="abbreviation != null" >
+        abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsName != null" >
+        goods_name = #{goodsName,jdbcType=VARCHAR},
+      </if>
+      <if test="quantity != null" >
+        quantity = #{quantity,jdbcType=BIGINT},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=BIGINT},
+      </if>
+      <if test="originPrice != null" >
+        origin_price = #{originPrice,jdbcType=BIGINT},
+      </if>
+      <if test="currency != null" >
+        currency = #{currency,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="brand != null" >
+        brand = #{brand,jdbcType=VARCHAR},
+      </if>
+      <if test="category != null" >
+        category = #{category,jdbcType=VARCHAR},
+      </if>
+      <if test="feature != null" >
+        feature = #{feature,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="detailUrl != null" >
+        detail_url = #{detailUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=BIT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="yuweixiang.first.dal.dataobject.OrderGoodsDO" >
+    update order_goods
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      item_id = #{itemId,jdbcType=BIGINT},
+      sku_id = #{skuId,jdbcType=BIGINT},
+      abbreviation = #{abbreviation,jdbcType=VARCHAR},
+      goods_name = #{goodsName,jdbcType=VARCHAR},
+      quantity = #{quantity,jdbcType=BIGINT},
+      price = #{price,jdbcType=BIGINT},
+      origin_price = #{originPrice,jdbcType=BIGINT},
+      currency = #{currency,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR},
+      brand = #{brand,jdbcType=VARCHAR},
+      category = #{category,jdbcType=VARCHAR},
+      feature = #{feature,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      detail_url = #{detailUrl,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=BIT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

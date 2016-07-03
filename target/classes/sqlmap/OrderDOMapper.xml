@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="yuweixiang.first.dal.daointerface.OrderDOMapper" >
+  <resultMap id="BaseResultMap" type="yuweixiang.first.dal.dataobject.OrderDO" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="trade_no" property="tradeNo" jdbcType="VARCHAR" />
+    <result column="merchant_order_no" property="merchantOrderNo" jdbcType="VARCHAR" />
+    <result column="logistics_no" property="logisticsNo" jdbcType="VARCHAR" />
+    <result column="payType" property="paytype" jdbcType="VARCHAR" />
+    <result column="exit_info" property="exitInfo" jdbcType="VARCHAR" />
+    <result column="gmt_create" property="gmtCreate" jdbcType="TIMESTAMP" />
+    <result column="gmt_modified" property="gmtModified" jdbcType="TIMESTAMP" />
+    <result column="is_delete" property="isDelete" jdbcType="SMALLINT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, order_id, user_id, trade_no, merchant_order_no, logistics_no, payType, exit_info, 
+    gmt_create, gmt_modified, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectByOrderId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    from orders
+    where order_id = #{orderId,jdbcType=VARCHAR}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from orders
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="yuweixiang.first.dal.dataobject.OrderDO" >
+    insert into orders (id, order_id, user_id, 
+      trade_no, merchant_order_no, logistics_no, 
+      payType, exit_info, gmt_create, 
+      gmt_modified, is_delete)
+    values (#{id,jdbcType=INTEGER}, #{orderId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, 
+      #{tradeNo,jdbcType=VARCHAR}, #{merchantOrderNo,jdbcType=VARCHAR}, #{logisticsNo,jdbcType=VARCHAR}, 
+      #{paytype,jdbcType=VARCHAR}, #{exitInfo,jdbcType=VARCHAR}, #{gmtCreate,jdbcType=TIMESTAMP}, 
+      #{gmtModified,jdbcType=TIMESTAMP}, #{isDelete,jdbcType=SMALLINT})
+  </insert>
+  <insert id="insertSelective" parameterType="yuweixiang.first.dal.dataobject.OrderDO" >
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="tradeNo != null" >
+        trade_no,
+      </if>
+      <if test="merchantOrderNo != null" >
+        merchant_order_no,
+      </if>
+      <if test="logisticsNo != null" >
+        logistics_no,
+      </if>
+      <if test="paytype != null" >
+        payType,
+      </if>
+      <if test="exitInfo != null" >
+        exit_info,
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create,
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified,
+      </if>
+      <if test="isDelete != null" >
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantOrderNo != null" >
+        #{merchantOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNo != null" >
+        #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paytype != null" >
+        #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="exitInfo != null" >
+        #{exitInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        #{isDelete,jdbcType=SMALLINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="yuweixiang.first.dal.dataobject.OrderDO" >
+    update orders
+    <set >
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="tradeNo != null" >
+        trade_no = #{tradeNo,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantOrderNo != null" >
+        merchant_order_no = #{merchantOrderNo,jdbcType=VARCHAR},
+      </if>
+      <if test="logisticsNo != null" >
+        logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      </if>
+      <if test="paytype != null" >
+        payType = #{paytype,jdbcType=VARCHAR},
+      </if>
+      <if test="exitInfo != null" >
+        exit_info = #{exitInfo,jdbcType=VARCHAR},
+      </if>
+      <if test="gmtCreate != null" >
+        gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gmtModified != null" >
+        gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      </if>
+      <if test="isDelete != null" >
+        is_delete = #{isDelete,jdbcType=SMALLINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="yuweixiang.first.dal.dataobject.OrderDO" >
+    update orders
+    set order_id = #{orderId,jdbcType=VARCHAR},
+      user_id = #{userId,jdbcType=VARCHAR},
+      trade_no = #{tradeNo,jdbcType=VARCHAR},
+      merchant_order_no = #{merchantOrderNo,jdbcType=VARCHAR},
+      logistics_no = #{logisticsNo,jdbcType=VARCHAR},
+      payType = #{paytype,jdbcType=VARCHAR},
+      exit_info = #{exitInfo,jdbcType=VARCHAR},
+      gmt_create = #{gmtCreate,jdbcType=TIMESTAMP},
+      gmt_modified = #{gmtModified,jdbcType=TIMESTAMP},
+      is_delete = #{isDelete,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
