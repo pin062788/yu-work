@@ -13,7 +13,6 @@ import java.util.concurrent.locks.ReentrantLock;
 public class MyQueue {
 
     private int           capacity;
-
     private int           count;
 
     private Object[]      queue;
@@ -45,7 +44,7 @@ public class MyQueue {
             if (++putIndex == queue.length)
                 putIndex--;
             notEmpty.signal();
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -62,7 +61,7 @@ public class MyQueue {
             count--;
             notFull.signal();
             return object;
-        }finally {
+        } finally {
             lock.unlock();
         }
     }
@@ -99,7 +98,17 @@ public class MyQueue {
             for (int i = 0; i < 100; i++) {
                 GetHandler getHandler = new GetHandler(myQueue);
                 Future<Object> futureTask = completionService.submit(getHandler);
-                System.out.println(futureTask.get());
+                // 如果线程中有中断,则取消任务 --线程的取消
+                try {
+                    System.out.println(futureTask.get(1000, TimeUnit.MILLISECONDS));
+                } catch (TimeoutException e) {
+                    e.printStackTrace();
+                } catch (ExecutionException e) {
+                    e.printStackTrace();
+                } finally {
+                    futureTask.cancel(true);
+                }
+                // 将线程中的错误重新抛出,通过此种方式抛出新异常
                 getHandler.rethrow();
             }
             putHandler.rethrow();
