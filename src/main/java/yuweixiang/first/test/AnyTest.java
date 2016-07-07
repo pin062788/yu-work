@@ -1,9 +1,5 @@
 package yuweixiang.first.test;
 
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
-import yuweixiang.first.service.HelloWorldService;
-
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -44,8 +40,9 @@ public class AnyTest {
     }
 
     public static void main(String args[]){
-        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/spring-service.xml");
-        HelloWorldService helloWorldService = (HelloWorldService)applicationContext.getBean("helloWorldService");
-        System.out.println("here");
+//        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/spring-service.xml");
+//        HelloWorldService helloWorldService = (HelloWorldService)applicationContext.getBean("helloWorldService");
+//        System.out.println("here");
+        System.out.println((-1<<29) | 0);
     }
 }
