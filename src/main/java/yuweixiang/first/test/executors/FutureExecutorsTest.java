@@ -32,8 +32,8 @@ public class FutureExecutorsTest {
                 try {
                     startGate.await();
                     System.out
-                            .println("time:" + System.currentTimeMillis() + ",start a new thread,id:"
-                                    + Thread.currentThread().getId() + ",threadNum:" + threadNum);
+                        .println("time:" + System.currentTimeMillis() + ",start a new thread,id:"
+                                 + Thread.currentThread().getId() + ",threadNum:" + threadNum);
                     return "aa";
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -57,6 +57,7 @@ public class FutureExecutorsTest {
         for (FutureTask<String> futureTask : list) {
             System.out.println(futureTask.get());
         }
+        shutDown(cachedThreadPool);
     }
 
     /***
@@ -71,22 +72,22 @@ public class FutureExecutorsTest {
             tasks.add(new Task1());
         }
         List<Future<String>> taskList = executorService.invokeAll(tasks, 1000,
-                TimeUnit.MILLISECONDS);
+            TimeUnit.MILLISECONDS);
         for (Future<String> futureTask : taskList) {
             String ss = futureTask.get();
             System.out.println(ss);
         }
+        shutDown(executorService);
     }
 
     private class Task1 implements Callable<String> {
         @Override
         public String call() throws Exception {
             System.out.println("task1:" + Thread.currentThread().getId() + ",name:"
-                    + Thread.currentThread().getName());
+                               + Thread.currentThread().getName());
             return "bb";
         }
     }
-
 
     private class Task2 implements Runnable {
 
@@ -94,14 +95,14 @@ public class FutureExecutorsTest {
 
         @Override
         public void run() {
-            try{
-                while (!Thread.currentThread().isInterrupted()){
+            try {
+                while (!Thread.currentThread().isInterrupted()) {
                     System.out.println("task2");
                     throw new RuntimeException("停止!");
                 }
-            }catch(Throwable e){
+            } catch (Throwable e) {
                 this.thrown = e;
-            }finally {
+            } finally {
                 System.out.println(thrown);
                 //dosomething other like:
                 //threadExited(this,throw)
@@ -113,9 +114,35 @@ public class FutureExecutorsTest {
      * 异常终止处理
      */
     public void testWorkInterrupt() {
-        ExecutorService executorService = Executors.newSingleThreadExecutor();
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        // 可以将executorService强制转化为threadpoolexecutor,如
+        if (executorService instanceof ThreadPoolExecutor) {
+            ((ThreadPoolExecutor) executorService).setCorePoolSize(3);
+        }
         executorService.submit(new Task2());
         executorService.submit(new Task1());
+        shutDown(executorService);
+    }
+
+    /**
+     * 使用我的线程池来执行任务,设置了开始和结束以及停止时的日志
+     */
+    public void testWorkUseMyThreadPool() {
+        MyThreadPoolExecutor myThreadPoolExecutor = new MyThreadPoolExecutor(2, 2, 0,
+            TimeUnit.MILLISECONDS, new LinkedBlockingQueue<>());
+        myThreadPoolExecutor.submit(new Task2());
+        shutDown(myThreadPoolExecutor);
+    }
+
+    public void shutDown(ExecutorService executorService){
+        try {
+            if (executorService instanceof ThreadPoolExecutor) {
+                executorService.shutdown();
+                executorService.awaitTermination(3000, TimeUnit.MILLISECONDS);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void main(String args[]) throws Exception {
@@ -123,6 +150,7 @@ public class FutureExecutorsTest {
         executorsTest.testExecutors(4);
         executorsTest.testInvokeAllExecutors(4);
         executorsTest.testWorkInterrupt();
+        executorsTest.testWorkUseMyThreadPool();
+        System.out.println("here");
     }
-
 }

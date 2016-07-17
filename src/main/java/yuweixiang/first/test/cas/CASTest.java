@@ -29,6 +29,8 @@ public class CASTest {
         }
 
         public void castNode(Node node, Node next) throws Exception{
+            System.out.println(itemOffSet);
+            System.out.println(nextOffSet);
             UnsafeUtil.getUnsafe().compareAndSwapObject(this, nextOffSet, node, next);
         }
     }
@@ -38,6 +40,9 @@ public class CASTest {
         Node<String> node = new Node<String>();
         node.item = "a";
         node.castNode(null, node);
-        System.out.println(node.item);
+        Node<String> node1 = new Node<String>();
+        node1.item = "b";
+        node.castNode(node,node1);
+        System.out.println(node1.item);
     }
 }

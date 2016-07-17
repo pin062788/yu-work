@@ -1,5 +1,9 @@
 package yuweixiang.first.test;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import yuweixiang.first.util.LoggerUtil;
+
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -10,6 +14,10 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
  * @version $ Id: AnyTest.java, v 0.1 16/7/3 下午11:08 yuweixiang Exp $
  */
 public class AnyTest {
+
+    /** 日志 */
+    private static final Logger LOGGER = LoggerFactory
+            .getLogger(AnyTest.class);
 
     private int num;
 
@@ -44,5 +52,6 @@ public class AnyTest {
 //        HelloWorldService helloWorldService = (HelloWorldService)applicationContext.getBean("helloWorldService");
 //        System.out.println("here");
         System.out.println((-1<<29) | 0);
+        LoggerUtil.info(LOGGER,"anyTest");
     }
 }
