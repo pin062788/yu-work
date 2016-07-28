@@ -2,8 +2,8 @@ package yuweixiang.first.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import yuweixiang.first.util.LoggerUtil;
 
+import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
 
@@ -21,12 +21,21 @@ public class AnyTest {
 
     private int num;
 
-    private  AnyTest anyTest1 = new AnyTest(1);
+    private static AtomicReference<AnyTest> anyTest1 = new AtomicReference<AnyTest>();
 
     private static AnyTest anyTest;
 
     private AnyTest(int num){
         this.num = num;
+    }
+
+    public static AnyTest getAnyTest1(){
+        AnyTest a = new AnyTest(2);
+        if (anyTest1.compareAndSet(null,a)){
+            return a;
+        }else{
+            return anyTest1.get();
+        }
     }
 
     public static AnyTest getAnyTest(int num){
@@ -48,10 +57,17 @@ public class AnyTest {
     }
 
     public static void main(String args[]){
+        AnyTest a = AnyTest.getAnyTest1();
+        AnyTest b = AnyTest.getAnyTest1();
+        System.out.println(a==b);
+//        int i=0;
 //        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/spring-service.xml");
 //        HelloWorldService helloWorldService = (HelloWorldService)applicationContext.getBean("helloWorldService");
 //        System.out.println("here");
-        System.out.println((-1<<29) | 0);
-        LoggerUtil.info(LOGGER,"anyTest");
+//        System.out.println((-1<<29) | 0);
+//        System.out.println( i |= 3);
+//        LoggerUtil.info(LOGGER,"anyTest");
+//        KeyWords keywords = new KeyWords();
+//        JSONObject.toJSONString(keywords);
     }
 }
