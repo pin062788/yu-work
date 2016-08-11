@@ -2,6 +2,7 @@ package yuweixiang.first.test;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import yuweixiang.first.util.DateUtil;
 
 import java.util.concurrent.atomic.AtomicReference;
 import java.util.concurrent.locks.ReadWriteLock;
@@ -57,9 +58,11 @@ public class AnyTest {
     }
 
     public static void main(String args[]){
-        AnyTest a = AnyTest.getAnyTest1();
-        AnyTest b = AnyTest.getAnyTest1();
-        System.out.println(a==b);
+//        AnyTest a = AnyTest.getAnyTest1();
+//        AnyTest b = AnyTest.getAnyTest1();
+//        System.out.println(a==b);
+        System.out.println(DateUtil.getLongDatetime(DateUtil.NEW_DATE_FORMAT_OUTPUT_TIME,"2016-08-03 00:23:23"));
+        System.out.println(DateUtil.getLongDateToDate(1469917889,DateUtil.NEW_DATE_FORMAT_OUTPUT_TIME));
 //        int i=0;
 //        ApplicationContext applicationContext = new ClassPathXmlApplicationContext("classpath:/META-INF/spring/spring-service.xml");
 //        HelloWorldService helloWorldService = (HelloWorldService)applicationContext.getBean("helloWorldService");
